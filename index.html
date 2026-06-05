@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Bharath Reddy – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --navy:#0a0f1e;--navy2:#111827;--navy3:#1a2540;
+    --gold:#c9a84c;--gold2:#e8c97a;--gold3:#f5e4b0;
+    --text:#e8e8f0;--muted:#8899aa;--border:rgba(201,168,76,0.25);
+    --card:rgba(255,255,255,0.04);--card-hover:rgba(201,168,76,0.06);
+  }
+  body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+  
+  nav{position:sticky;top:0;z-index:100;background:rgba(10,15,30,0.9);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border);padding:0 2rem}
+  .nav-inner{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);letter-spacing:0.04em}
+  .nav-links{display:flex;gap:1.5rem;list-style:none}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s}
+  .nav-links a:hover{color:var(--gold)}
+  .edit-toggle{background:transparent;border:0.5px solid var(--border);color:var(--gold);padding:6px 14px;border-radius:20px;font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;letter-spacing:0.04em;text-transform:uppercase}
+  .edit-toggle:hover{background:var(--gold);color:var(--navy)}
+  .edit-toggle.active{background:var(--gold);color:var(--navy)}
+
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:2rem}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,0.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(26,37,64,0.6) 0%,transparent 50%)}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+  .hero-content{max-width:1100px;margin:auto;position:relative;z-index:1;padding-top:80px}
+  .hero-tag{display:inline-block;background:rgba(201,168,76,0.12);border:0.5px solid var(--border);color:var(--gold);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:1.5rem}
+  .hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:700;line-height:1.1;margin-bottom:0.5rem}
+  .hero-name span{color:var(--gold)}
+  .hero-title{font-size:1.15rem;color:var(--muted);font-weight:300;margin-bottom:2rem;letter-spacing:0.02em}
+  .hero-bio{max-width:580px;font-size:1rem;line-height:1.8;color:rgba(232,232,240,0.8);margin-bottom:2.5rem}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-gold{background:var(--gold);color:var(--navy);padding:12px 28px;border-radius:4px;text-decoration:none;font-weight:500;font-size:0.9rem;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;letter-spacing:0.02em}
+  .btn-gold:hover{background:var(--gold2);transform:translateY(-1px)}
+  .btn-outline{background:transparent;color:var(--gold);padding:12px 28px;border-radius:4px;text-decoration:none;font-weight:500;font-size:0.9rem;border:0.5px solid var(--border);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+  .btn-outline:hover{border-color:var(--gold);background:rgba(201,168,76,0.08)}
+
+  .hero-stats{display:flex;gap:3rem;margin-top:3rem;padding-top:3rem;border-top:0.5px solid var(--border)}
+  .stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);display:block}
+  .stat-label{font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+
+  section{padding:5rem 2rem;max-width:1100px;margin:auto}
+  .section-label{font-size:0.75rem;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+  .section-label::after{content:'';flex:1;height:0.5px;background:var(--border)}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:3rem;line-height:1.2}
+
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  .about-text p{color:rgba(232,232,240,0.8);line-height:1.9;margin-bottom:1rem;font-size:0.95rem}
+  .skills-grid{display:grid;gap:0.75rem}
+  .skill-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--card);border:0.5px solid var(--border);border-radius:6px}
+  .skill-name{font-size:0.9rem;color:var(--text)}
+  .skill-level{font-size:0.78rem;color:var(--gold);background:rgba(201,168,76,0.1);padding:3px 10px;border-radius:12px}
+
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+  .project-card{background:var(--card);border:0.5px solid var(--border);border-radius:8px;padding:1.75rem;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity 0.3s}
+  .project-card:hover{background:var(--card-hover);border-color:rgba(201,168,76,0.4);transform:translateY(-2px)}
+  .project-card:hover::before{opacity:1}
+  .project-icon{width:42px;height:42px;background:rgba(201,168,76,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem}
+  .project-title{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:0.5rem;color:var(--text)}
+  .project-desc{font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+  .project-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+  .tag{background:rgba(201,168,76,0.08);border:0.5px solid var(--border);color:var(--gold);font-size:0.73rem;padding:3px 10px;border-radius:12px;letter-spacing:0.04em}
+  .project-actions{display:flex;gap:0.5rem;margin-top:1rem;opacity:0;transition:opacity 0.2s}
+  .project-card:hover .project-actions{opacity:1}
+  .proj-btn{background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+  .proj-btn:hover{color:var(--gold);border-color:var(--gold)}
+  .proj-btn.danger:hover{color:#f09595;border-color:#f09595}
+
+  .add-card{background:transparent;border:0.5px dashed rgba(201,168,76,0.3);border-radius:8px;padding:1.75rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;cursor:pointer;transition:all 0.3s;min-height:200px}
+  .add-card:hover{border-color:var(--gold);background:var(--card-hover)}
+  .add-icon{font-size:2rem;color:rgba(201,168,76,0.4)}
+  .add-label{font-size:0.85rem;color:var(--muted)}
+
+  .achievements-list{display:grid;gap:1rem}
+  .achievement-item{display:flex;align-items:flex-start;gap:1rem;padding:1.25rem 1.5rem;background:var(--card);border:0.5px solid var(--border);border-radius:8px;transition:border-color 0.2s}
+  .achievement-item:hover{border-color:rgba(201,168,76,0.4)}
+  .ach-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+  .ach-title{font-weight:500;font-size:0.95rem;margin-bottom:0.25rem}
+  .ach-sub{font-size:0.83rem;color:var(--muted)}
+
+  .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+  .media-card{background:var(--card);border:0.5px solid var(--border);border-radius:8px;overflow:hidden;transition:all 0.3s;position:relative;group}
+  .media-card:hover{border-color:rgba(201,168,76,0.4);transform:translateY(-2px)}
+  .media-thumb{width:100%;height:160px;object-fit:cover;background:var(--navy3);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem}
+  .media-thumb img,.media-thumb video{width:100%;height:100%;object-fit:cover}
+  .media-info{padding:0.75rem 1rem}
+  .media-name{font-size:0.88rem;color:var(--text);margin-bottom:0.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .media-date{font-size:0.75rem;color:var(--muted)}
+  .media-del{position:absolute;top:8px;right:8px;background:rgba(10,15,30,0.8);border:0.5px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;opacity:0;transition:opacity 0.2s}
+  .media-card:hover .media-del{opacity:1}
+  .media-del:hover{color:#f09595;border-color:#f09595}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  .contact-item{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;background:var(--card);border:0.5px solid var(--border);border-radius:8px;text-decoration:none;color:inherit;transition:all 0.2s}
+  .contact-item:hover{border-color:rgba(201,168,76,0.5);background:var(--card-hover);transform:translateY(-2px)}
+  .contact-icon{font-size:1.2rem;color:var(--gold);flex-shrink:0}
+  .contact-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem}
+  .contact-val{font-size:0.92rem;color:var(--text)}
+
+  .ip-card{background:var(--card);border:0.5px solid var(--border);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:2rem;background:linear-gradient(135deg,rgba(201,168,76,0.06),transparent)}
+  .ip-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(201,168,76,0.15);border:0.5px solid var(--border);color:var(--gold);font-size:0.78rem;padding:6px 14px;border-radius:20px;margin-bottom:1rem;letter-spacing:0.06em}
+  .ip-title{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:0.5rem}
+  .ip-num{font-size:0.82rem;color:var(--muted)}
+
+  footer{border-top:0.5px solid var(--border);padding:2rem;text-align:center;font-size:0.82rem;color:var(--muted)}
+
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;padding:1rem}
+  .modal-overlay.open{display:flex}
+  .modal{background:var(--navy2);border:0.5px solid var(--border);border-radius:12px;padding:2rem;width:100%;max-width:520px;max-height:85vh;overflow-y:auto}
+  .modal h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1.5rem;color:var(--gold)}
+  .form-group{margin-bottom:1rem}
+  .form-group label{display:block;font-size:0.82rem;color:var(--muted);margin-bottom:0.4rem;letter-spacing:0.04em;text-transform:uppercase}
+  .form-group input,.form-group textarea,.form-group select{width:100%;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);color:var(--text);padding:10px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s}
+  .form-group input:focus,.form-group textarea:focus{border-color:rgba(201,168,76,0.6)}
+  .form-group textarea{min-height:90px;resize:vertical}
+  .modal-actions{display:flex;gap:0.75rem;margin-top:1.5rem;justify-content:flex-end}
+  .btn-cancel{background:transparent;border:0.5px solid var(--border);color:var(--muted);padding:9px 20px;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.88rem}
+  .btn-save{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;border:none}
+  .btn-save:hover{background:var(--gold2)}
+
+  .editable-field{cursor:text;position:relative}
+  .edit-mode .editable-field{background:rgba(201,168,76,0.06);border:0.5px dashed rgba(201,168,76,0.4);border-radius:4px;padding:2px 6px;min-width:40px}
+  .edit-mode .editable-field:hover{border-color:var(--gold)}
+  .edit-hint{font-size:0.73rem;color:var(--gold);margin-top:0.5rem;opacity:0}
+  .edit-mode .edit-hint{opacity:1}
+
+  @media(max-width:640px){
+    .about-grid,.contact-grid{grid-template-columns:1fr}
+    .hero-stats{gap:1.5rem}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">S · S · B · R</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#media">Media</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="edit-toggle" id="editBtn" onclick="toggleEditMode()">✏ Edit Mode</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">📍 Hyderabad, Telangana, India</div>
+    <h1 class="hero-name">Siddenki<br><span>Sai Bharath Reddy</span></h1>
+    <p class="hero-title">CSE Undergraduate · Innovation Associate · IoT & AI Enthusiast</p>
+    <p class="hero-bio">A highly motivated undergraduate at Geetanjali College of Engineering and Technology, passionate about technology, sustainability, and building impactful solutions in AI, IoT, and Agriculture. Currently working at Geenovate Incubation Centre and holding a published patent.</p>
+    <div class="hero-cta">
+      <a class="btn-gold" href="#projects">View Projects</a>
+      <a class="btn-outline" href="#contact">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num">2028</span><span class="stat-label">Expected Graduation</span></div>
+      <div><span class="stat-num">7.75</span><span class="stat-label">CGPA</span></div>
+      <div><span class="stat-num">1</span><span class="stat-label">Patent Published</span></div>
+      <div><span class="stat-num">2+</span><span class="stat-label">Awards Won</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-label">About Me</div>
+  <h2 class="section-title">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a Computer Science and Engineering student with a strong foundation in programming, IoT systems, and design thinking. My work bridges technology and real-world impact — from water quality monitoring systems to sustainable energy prototypes.</p>
+      <p>Currently serving as an Innovation Associate at Geenovate, Geetanjali College's incubation centre, where I collaborate with mentors and startup teams to solve real problems through ideation and solution development.</p>
+      <p>I hold a published patent for a versatile closure system and have competed in national-level science fairs and ideathons, winning recognition for my innovative approach to complex challenges.</p>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom:1rem">Technical Skills</div>
+      <div class="skills-grid" id="skillsGrid">
+      </div>
+      <button class="btn-outline" style="margin-top:1rem;width:100%" onclick="openSkillModal()">+ Add Skill</button>
+    </div>
+  </div>
+</section>
+
+<section id="projects" style="max-width:1100px;margin:auto;padding:5rem 2rem">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">What I've Built</h2>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<section id="achievements" style="max-width:1100px;margin:auto;padding:5rem 2rem">
+  <div class="section-label">Achievements</div>
+  <h2 class="section-title">Recognition & Milestones</h2>
+  <div class="achievements-list" id="achievementsList"></div>
+  <button class="btn-outline" style="margin-top:1rem" onclick="openAchModal()">+ Add Achievement</button>
+
+  <div style="margin-top:2.5rem">
+    <div class="section-label" style="margin-bottom:1.5rem">Intellectual Property</div>
+    <div class="ip-card">
+      <div class="ip-badge">📋 Patent Published</div>
+      <h3 class="ip-title">A Versatile Closure System Featuring Attached or Retractable Caps/Covers</h3>
+      <p class="ip-num">Application Number: 202541120514</p>
+    </div>
+  </div>
+</section>
+
+<section id="media" style="max-width:1100px;margin:auto;padding:5rem 2rem">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem">
+    <div>
+      <div class="section-label">Media Gallery</div>
+      <h2 class="section-title" style="margin-bottom:0">Photos & Videos</h2>
+    </div>
+    <button class="btn-gold" onclick="openMediaModal()" style="margin-top:0.5rem">+ Add Media</button>
+  </div>
+  <div class="media-grid" id="mediaGrid"></div>
+</section>
+
+<section id="contact" style="max-width:1100px;margin:auto;padding:5rem 2rem">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="contact-grid">
+    <a class="contact-item" href="mailto:saibharathreddysiddenki@gmail.com"><span class="contact-icon">✉</span><div><div class="contact-label">Email</div><div class="contact-val">saibharathreddysiddenki@gmail.com</div></div></a>
+    <a class="contact-item" href="tel:+918374128782"><span class="contact-icon">📞</span><div><div class="contact-label">Phone</div><div class="contact-val">+91 8374128782</div></div></a>
+    <a class="contact-item" href="https://www.linkedin.com/in/s-sai-bharath-reddy" target="_blank" rel="noopener"><span class="contact-icon">💼</span><div><div class="contact-label">LinkedIn</div><div class="contact-val">S Sai Bharath Reddy</div></div></a>
+    <a class="contact-item" href="https://www.google.com/maps/search/?api=1&query=Musheerabad,Hyderabad,Telangana" target="_blank" rel="noopener"><span class="contact-icon">📍</span><div><div class="contact-label">Location</div><div class="contact-val">Musheerabad, Hyderabad, Telangana</div></div></a>
+  </div>
+</section>
+
+<footer>
+  <p style="font-family:'Playfair Display',serif;color:var(--gold);margin-bottom:0.5rem">Siddenki Sai Bharath Reddy</p>
+  <p>CSE · Geetanjali College of Engineering and Technology · Class of 2028</p>
+</footer>
+
+<!-- Project Modal -->
+<div class="modal-overlay" id="projectModal">
+  <div class="modal">
+    <h3 id="modalTitle">Add New Project</h3>
+    <div class="form-group"><label>Project Title</label><input type="text" id="pTitle" placeholder="e.g. Smart Agriculture System"></div>
+    <div class="form-group"><label>Description</label><textarea id="pDesc" placeholder="What did you build and why?"></textarea></div>
+    <div class="form-group"><label>Tags (comma-separated)</label><input type="text" id="pTags" placeholder="IoT, Python, Arduino"></div>
+    <div class="form-group"><label>Icon (emoji)</label><input type="text" id="pIcon" placeholder="🔬" style="width:80px"></div>
+    <div class="form-group"><label>Year</label><input type="text" id="pYear" placeholder="2024"></div>
+    <div class="form-group"><label>Status</label>
+      <select id="pStatus"><option value="Completed">Completed</option><option value="In Progress">In Progress</option><option value="Ongoing">Ongoing</option></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeProjectModal()">Cancel</button>
+      <button class="btn-save" onclick="saveProject()">Save Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- Media Modal -->
+<div class="modal-overlay" id="mediaModal">
+  <div class="modal">
+    <h3>Add Media</h3>
+    <div class="form-group"><label>Caption / Title</label><input type="text" id="mCaption" placeholder="e.g. Science Fair 2024"></div>
+    <div class="form-group"><label>Upload Image or Video</label><input type="file" id="mFile" accept="image/*,video/*"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeMediaModal()">Cancel</button>
+      <button class="btn-save" onclick="saveMedia()">Add to Gallery</button>
+    </div>
+  </div>
+</div>
+
+<!-- Skill Modal -->
+<div class="modal-overlay" id="skillModal">
+  <div class="modal">
+    <h3 id="skillModalTitle">Add Skill</h3>
+    <div class="form-group"><label>Skill Name</label><input type="text" id="sName" placeholder="e.g. Python"></div>
+    <div class="form-group"><label>Level</label><input type="text" id="sLevel" placeholder="e.g. Intermediate"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeSkillModal()">Cancel</button>
+      <button class="btn-save" onclick="saveSkill()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Achievement Modal -->
+<div class="modal-overlay" id="achModal">
+  <div class="modal">
+    <h3 id="achModalTitle">Add Achievement</h3>
+    <div class="form-group"><label>Icon (emoji)</label><input type="text" id="aIcon" placeholder="🏆" style="width:80px"></div>
+    <div class="form-group"><label>Title</label><input type="text" id="aTitle" placeholder="e.g. First Prize – XYZ"></div>
+    <div class="form-group"><label>Subtitle / Details</label><textarea id="aSub" placeholder="Organization · Project details"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeAchModal()">Cancel</button>
+      <button class="btn-save" onclick="saveAch()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY_PROJ = 'sbr_projects';
+const KEY_MEDIA = 'sbr_media';
+const KEY_SKILLS = 'sbr_skills';
+const KEY_ACH = 'sbr_achievements';
+let editMode = false;
+let editingIdx = null;
+let editingSkillIdx = null;
+let editingAchIdx = null;
+let projects = [];
+let mediaItems = [];
+let skills = [];
+let achievements = [];
+
+function loadData(){
+  try{projects=JSON.parse(localStorage.getItem(KEY_PROJ)||'[]')}catch{projects=[]}
+  try{mediaItems=JSON.parse(localStorage.getItem(KEY_MEDIA)||'[]')}catch{mediaItems=[]}
+  try{skills=JSON.parse(localStorage.getItem(KEY_SKILLS)||'[]')}catch{skills=[]}
+  try{achievements=JSON.parse(localStorage.getItem(KEY_ACH)||'[]')}catch{achievements=[]}
+  if(!projects.length){
+    projects=[
+      {title:'IoT-Based Water Quality Tester',desc:'Designed an IoT system to monitor water quality parameters including pH, turbidity, and temperature. Showcased at a National Level Science Fair where it earned recognition.',tags:['IoT','Sensors','Arduino'],icon:'💧',year:'2024',status:'Completed'},
+      {title:'Piezo Electricity Generation',desc:'Developed during an IoT value-added course at ABTechVille. Focused on sustainable energy generation using piezoelectric principles to convert mechanical stress into electrical energy.',tags:['IoT','Sustainability','Energy'],icon:'⚡',year:'2024',status:'Completed'}
+    ];
+    saveProjects();
+  }
+  if(!skills.length){
+    skills=[
+      {name:'Python',level:'Pursuing – NPTEL'},
+      {name:'C',level:'Intermediate'},
+      {name:'Java',level:'Beginner'},
+      {name:'HTML & CSS',level:'Intermediate'},
+      {name:'Data Structures & Algorithms',level:'Basics'},
+      {name:'IoT Systems',level:'Applied'}
+    ];
+    saveSkillsStore();
+  }
+  if(!achievements.length){
+    achievements=[
+      {icon:'🥈',title:'Second Prize – Herizon Ideathon',sub:'Geetanjali College of Engineering and Technology · Project focused on uplifting women'},
+      {icon:'🏆',title:'Consolation Prize – National Level Science Fair "Vaisheshika"',sub:'GCET · Project: IoT-Based Water Quality Tester'},
+      {icon:'📜',title:'7-Day IoT Value Added Course',sub:'ABTechVille · Project: Piezo Electricity Generation System'},
+      {icon:'🎓',title:'Python Programming – NPTEL',sub:'Currently Pursuing · National Programme on Technology Enhanced Learning'}
+    ];
+    saveAchStore();
+  }
+}
+
+function saveProjects(){localStorage.setItem(KEY_PROJ,JSON.stringify(projects))}
+function saveSkillsStore(){localStorage.setItem(KEY_SKILLS,JSON.stringify(skills))}
+function saveAchStore(){localStorage.setItem(KEY_ACH,JSON.stringify(achievements))}
+function saveMediaStore(){
+  const lite=mediaItems.map(m=>({...m,src:m.src&&m.src.length>200000?'__large__':m.src}));
+  try{localStorage.setItem(KEY_MEDIA,JSON.stringify(lite))}catch(e){console.warn('Storage limit reached')}
+}
+
+function renderProjects(){
+  const g=document.getElementById('projectsGrid');
+  g.innerHTML='';
+  projects.forEach((p,i)=>{
+    const card=document.createElement('div');
+    card.className='project-card';
+    card.innerHTML=`
+      <div class="project-icon">${p.icon||'🔬'}</div>
+      <h3 class="project-title">${p.title}</h3>
+      <p class="project-desc">${p.desc}</p>
+      <div class="project-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem">
+        <span style="font-size:0.78rem;color:var(--muted)">${p.year||''}</span>
+        <span class="tag" style="color:var(--gold2)">${p.status||''}</span>
+      </div>
+      <div class="project-actions">
+        <button class="proj-btn" onclick="editProject(${i})">✏ Edit</button>
+        <button class="proj-btn danger" onclick="deleteProject(${i})">✕ Delete</button>
+      </div>`;
+    g.appendChild(card);
+  });
+  const addCard=document.createElement('div');
+  addCard.className='add-card';
+  addCard.onclick=openProjectModal;
+  addCard.innerHTML=`<div class="add-icon">+</div><div class="add-label">Add New Project</div>`;
+  g.appendChild(addCard);
+}
+
+function renderMedia(){
+  const g=document.getElementById('mediaGrid');
+  g.innerHTML='';
+  mediaItems.forEach((m,i)=>{
+    const card=document.createElement('div');
+    card.className='media-card';
+    let thumb='';
+    if(m.type==='video'){
+      thumb=`<div class="media-thumb"><video src="${m.src}" style="width:100%;height:100%;object-fit:cover" muted></video></div>`;
+    } else if(m.src&&m.src!=='__large__'){
+      thumb=`<div class="media-thumb"><img src="${m.src}" alt="${m.caption}" loading="lazy"></div>`;
+    } else {
+      thumb=`<div class="media-thumb" style="display:flex;align-items:center;justify-content:center;font-size:2rem">${m.type==='video'?'🎬':'🖼'}</div>`;
+    }
+    card.innerHTML=`${thumb}
+      <div class="media-info"><div class="media-name">${m.caption||'Untitled'}</div><div class="media-date">${m.date||''}</div></div>
+      <button class="media-del" onclick="deleteMedia(${i})" title="Remove">✕</button>`;
+    g.appendChild(card);
+  });
+  if(!mediaItems.length){
+    g.innerHTML=`<div style="color:var(--muted);font-size:0.88rem;padding:2rem 0;grid-column:1/-1">No media yet — click "Add Media" to upload photos or videos from your projects and events.</div>`;
+  }
+}
+
+function openProjectModal(idx){
+  editingIdx=null;
+  document.getElementById('modalTitle').textContent='Add New Project';
+  document.getElementById('pTitle').value='';
+  document.getElementById('pDesc').value='';
+  document.getElementById('pTags').value='';
+  document.getElementById('pIcon').value='🔬';
+  document.getElementById('pYear').value=new Date().getFullYear();
+  document.getElementById('pStatus').value='Completed';
+  document.getElementById('projectModal').classList.add('open');
+}
+function editProject(i){
+  editingIdx=i;
+  const p=projects[i];
+  document.getElementById('modalTitle').textContent='Edit Project';
+  document.getElementById('pTitle').value=p.title;
+  document.getElementById('pDesc').value=p.desc;
+  document.getElementById('pTags').value=p.tags.join(', ');
+  document.getElementById('pIcon').value=p.icon||'🔬';
+  document.getElementById('pYear').value=p.year||'';
+  document.getElementById('pStatus').value=p.status||'Completed';
+  document.getElementById('projectModal').classList.add('open');
+}
+function closeProjectModal(){document.getElementById('projectModal').classList.remove('open')}
+function saveProject(){
+  const p={
+    title:document.getElementById('pTitle').value||'Untitled',
+    desc:document.getElementById('pDesc').value,
+    tags:document.getElementById('pTags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    icon:document.getElementById('pIcon').value||'🔬',
+    year:document.getElementById('pYear').value,
+    status:document.getElementById('pStatus').value
+  };
+  if(editingIdx!==null)projects[editingIdx]=p;
+  else projects.push(p);
+  saveProjects();renderProjects();closeProjectModal();
+}
+function deleteProject(i){if(confirm('Delete this project?')){projects.splice(i,1);saveProjects();renderProjects()}}
+
+function openMediaModal(){document.getElementById('mediaModal').classList.add('open')}
+function closeMediaModal(){document.getElementById('mediaModal').classList.remove('open')}
+function saveMedia(){
+  const file=document.getElementById('mFile').files[0];
+  const caption=document.getElementById('mCaption').value||file?.name||'Media';
+  if(!file){alert('Please select a file');return}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const item={caption,src:e.target.result,type:file.type.startsWith('video')?'video':'image',date:new Date().toLocaleDateString('en-IN',{year:'numeric',month:'short',day:'numeric'})};
+    mediaItems.push(item);
+    saveMediaStore();renderMedia();closeMediaModal();
+    document.getElementById('mCaption').value='';
+    document.getElementById('mFile').value='';
+  };
+  reader.readAsDataURL(file);
+}
+function deleteMedia(i){if(confirm('Remove this media?')){mediaItems.splice(i,1);saveMediaStore();renderMedia()}}
+
+function renderSkills(){
+  const g=document.getElementById('skillsGrid');
+  g.innerHTML='';
+  skills.forEach((s,i)=>{
+    const row=document.createElement('div');
+    row.className='skill-item';
+    row.innerHTML=`<span class="skill-name">${s.name}</span>
+      <span style="display:flex;align-items:center;gap:0.5rem">
+        <span class="skill-level">${s.level}</span>
+        <button class="proj-btn" onclick="editSkill(${i})" title="Edit">✏</button>
+        <button class="proj-btn danger" onclick="deleteSkill(${i})" title="Delete">✕</button>
+      </span>`;
+    g.appendChild(row);
+  });
+}
+function openSkillModal(){editingSkillIdx=null;document.getElementById('skillModalTitle').textContent='Add Skill';document.getElementById('sName').value='';document.getElementById('sLevel').value='';document.getElementById('skillModal').classList.add('open')}
+function editSkill(i){editingSkillIdx=i;const s=skills[i];document.getElementById('skillModalTitle').textContent='Edit Skill';document.getElementById('sName').value=s.name;document.getElementById('sLevel').value=s.level;document.getElementById('skillModal').classList.add('open')}
+function closeSkillModal(){document.getElementById('skillModal').classList.remove('open')}
+function saveSkill(){
+  const s={name:document.getElementById('sName').value||'Skill',level:document.getElementById('sLevel').value||'Beginner'};
+  if(editingSkillIdx!==null)skills[editingSkillIdx]=s;else skills.push(s);
+  saveSkillsStore();renderSkills();closeSkillModal();
+}
+function deleteSkill(i){if(confirm('Delete this skill?')){skills.splice(i,1);saveSkillsStore();renderSkills()}}
+
+function renderAchievements(){
+  const g=document.getElementById('achievementsList');
+  g.innerHTML='';
+  achievements.forEach((a,i)=>{
+    const row=document.createElement('div');
+    row.className='achievement-item';
+    row.innerHTML=`<span class="ach-icon">${a.icon||'🏆'}</span>
+      <div style="flex:1"><div class="ach-title">${a.title}</div><div class="ach-sub">${a.sub||''}</div></div>
+      <div style="display:flex;gap:0.4rem">
+        <button class="proj-btn" onclick="editAch(${i})" title="Edit">✏</button>
+        <button class="proj-btn danger" onclick="deleteAch(${i})" title="Delete">✕</button>
+      </div>`;
+    g.appendChild(row);
+  });
+}
+function openAchModal(){editingAchIdx=null;document.getElementById('achModalTitle').textContent='Add Achievement';document.getElementById('aIcon').value='🏆';document.getElementById('aTitle').value='';document.getElementById('aSub').value='';document.getElementById('achModal').classList.add('open')}
+function editAch(i){editingAchIdx=i;const a=achievements[i];document.getElementById('achModalTitle').textContent='Edit Achievement';document.getElementById('aIcon').value=a.icon||'🏆';document.getElementById('aTitle').value=a.title;document.getElementById('aSub').value=a.sub||'';document.getElementById('achModal').classList.add('open')}
+function closeAchModal(){document.getElementById('achModal').classList.remove('open')}
+function saveAch(){
+  const a={icon:document.getElementById('aIcon').value||'🏆',title:document.getElementById('aTitle').value||'Untitled',sub:document.getElementById('aSub').value};
+  if(editingAchIdx!==null)achievements[editingAchIdx]=a;else achievements.push(a);
+  saveAchStore();renderAchievements();closeAchModal();
+}
+function deleteAch(i){if(confirm('Delete this achievement?')){achievements.splice(i,1);saveAchStore();renderAchievements()}}
+
+function toggleEditMode(){
+  editMode=!editMode;
+  document.body.classList.toggle('edit-mode',editMode);
+  const btn=document.getElementById('editBtn');
+  btn.textContent=editMode?'✓ Done Editing':'✏ Edit Mode';
+  btn.classList.toggle('active',editMode);
+}
+
+loadData();renderProjects();renderMedia();renderSkills();renderAchievements();
+</script>
+</body>
+</html>
